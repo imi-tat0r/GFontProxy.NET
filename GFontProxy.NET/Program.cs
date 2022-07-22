@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.FileProviders;
 
-const string copyrightNotice = @"/********* Copyright (c) 2022, ev0lve Digital. All rights reserved. *********
+const string copyrightNotice = @"/********* GFontProxy.NET by ev0lve Digital. All rights reserved. *********
 Web: https://googleapisproxy.com
 GitHub: https://github.com/imi-tat0r/GFontProxy.NET
 Docker: https://hub.docker.com/r/imitat0r/gfontproxy.net
 
-Purpose: GFontProxy.NET is a Proxy in order to cache and provide Google fonts in compliance with GDPR (if hosted in EU)
-****************************************************************************/
+GFontProxy.NET acts as a proxy in order to cache and provide Google fonts
+in compliance with GDPR (if hosted in EU)
+***************************************************************************/
 
 ";
 
@@ -19,10 +20,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
 // add CORS support (needed so fonts can get loaded from other domains)
-builder.Services.AddCors();
+builder.Services.AddCors(options => options.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
-app.UseCors(options => options.AllowAnyOrigin());
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 // add static files and override default file provider
 app.UseStaticFiles(new StaticFileOptions
