@@ -14,16 +14,17 @@ in compliance with GDPR (if hosted in EU)
 
 ";
 
+var corsOrigin = Environment.GetEnvironmentVariable("CORS_ORIGIN") ?? "*";
 var fontPath = Path.Combine(Directory.GetCurrentDirectory(), "fonts");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
 // add CORS support (needed so fonts can get loaded from other domains)
-builder.Services.AddCors(options => options.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+builder.Services.AddCors(options => options.AddDefaultPolicy(p => p.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseCors(options => options.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod());
 
 // add static files and override default file provider
 app.UseStaticFiles(new StaticFileOptions

@@ -8,6 +8,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "WEBSITE_URL": "http://localhost:8000"
+        "CORS_ORIGIN": "https://unmatched.gg"
       }
     }
   }
