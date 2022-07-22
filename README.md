@@ -12,8 +12,8 @@ Since no PII is sent to google, this is GDPR compliant without the need for spec
 In order to use GFontProxy.NET you need to have `Docker` and a webserver which can act as a reverse proxy (e.g. `nginx`).
 
 # Install
-1. Run the docker container using this command:  
-```docker run -d -p {port}:80 -e WEBSITE_URL=https://your-url.tld imitat0r/gfontproxy.net:latest```  
+1. Run the docker container using this command (CORS_ORIGIN is optional):  
+```docker run -d -p {port}:80 -e WEBSITE_URL=https://your-url.tld -e CORS_ORIGIN=https://another-url.tld imitat0r/gfontproxy.net:latest```  
 2. Setup a reverse proxy from `https://your-url.tld` to `http://localhost:{port}`  
 
 # Demo
